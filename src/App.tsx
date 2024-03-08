@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header';
+import { useEffect, useState } from 'react';
+import ListResto from './components/resto/ListRestos';
+import { Resto } from './models/restaurants';
+
 
 function App() {
+  const [restos, setResto] = useState<Resto[]>([]);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/opties', {mode: 'cors'})
+    .then((res) => res.json())
+    .then((data) => setResto(data))
+    .catch((err) => console.log(err));
+    console.log(restos);
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <div>
+        <ListResto restos={restos} />
+      </div>
+    </>   
   );
 }
 

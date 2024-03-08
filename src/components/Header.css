@@ -1,0 +1,17 @@
+header{
+    width: 100%;
+    height: 10rem;
+    background-color: #2f4f4f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header div {
+    max-width: 60%;
+}
+
+header div h1 {
+    font-size: 2rem;
+    color: antiquewhite;
+}
