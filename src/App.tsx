@@ -5,8 +5,7 @@ import ListResto from './components/resto/ListRestos';
 import { Resto } from './models/restaurants';
 import RouletteWheel from './components/rouletteWheel/RouletteWheel';
 import { Data } from './components/rouletteWheel/RouletteWheel';
-import { clear } from 'console';
-
+import './App.css'
 
 const colors : string[] = [
   'green',
@@ -57,22 +56,37 @@ function App() {
     fetchRestos();
   }, []);
 
-  const wheelData = convertRestoToData(restos);
+  function WheelData(){
+    const wheelRestos : Resto[] = [];
+    restos.forEach(resto => {
+      if (resto.isChecked) {
+        wheelRestos.push(resto);
+      }
+    });
+    return wheelRestos;
+  }
+
+  const wheelData = convertRestoToData(WheelData());
 
   return (
     <>
       <Header />
-      <button onClick={handleSwitch}>Wheel</button>
-      <br />
-      <label htmlFor="restoNaam">Restaurant: </label>
-      <input value={naam} onChange={e => setNaam(e.target.value)} id="restoNaam"/>
-      <br />
-      <label htmlFor="restoOmschrijving">Omschrijving: </label>
-      <input value={omschrijving} onChange={e => setOmschrijving(e.target.value)} id="restoOmschrijving"/>
-      <br />
-      <button onClick={() => { setResto([...restos, {id : restos.length.toString(), naam : naam, omschrijving : omschrijving,}])}}>submit</button>
-      { !switchToWheel  && <ListResto restos={restos} /> }
-      { switchToWheel && wheelData.length > 0 && <RouletteWheel data={wheelData} />}
+      <div className='main_body'>
+        <button onClick={handleSwitch}>Wheel</button>
+        {!switchToWheel && <div className='input_div'>
+          <div>
+            <label htmlFor="restoNaam">Restaurant: </label>
+            <input value={naam} onChange={e => setNaam(e.target.value)} id="restoNaam"/>
+          </div>
+          <div>
+            <label htmlFor="restoOmschrijving">Omschrijving: </label>
+            <input value={omschrijving} onChange={e => setOmschrijving(e.target.value)} id="restoOmschrijving"/>
+          </div>
+          <button onClick={() => { setResto([...restos, {id : restos.length.toString(), naam : naam, omschrijving : omschrijving, isChecked : false}])}}>submit</button>
+        </div> }
+        { !switchToWheel  && <ListResto restos={restos} /> }
+        { switchToWheel && wheelData.length > 0 && <RouletteWheel data={wheelData} />}
+      </div>
     </>   
   );
 }

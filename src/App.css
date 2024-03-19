@@ -1,16 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.main_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main_body button:first-child{
+  width: 10rem;
+  margin: 5px auto;
+  padding: 5px;
+  background-color: #99FF66;
+  font-weight: bold;
+}
+
+.input_div{
+  display:  flex;
+  flex-direction: column;
+  width: 25rem;
+  margin: 0 auto;
+  border: 1px solid #000;
+}
+
+.input_div div{
+  display: flex;
+  margin: 8px;
+}
+
+.input_div div label{
+  display: block;
+  width: 9rem;
+  text-align: end;
+  font-family: "Source Serif 4", serif;
+  font-size: 1.3rem;
+  margin-right: 0.5rem;
+}
+
+.input_div button {
+  width: 10rem;
+  align-self: center;
+  margin: 5px;
+  padding: 5px;
 }
 
 .App-header {

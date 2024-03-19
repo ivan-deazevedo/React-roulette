@@ -1,18 +1,20 @@
 import React from "react";
 import { Resto } from "../../models/restaurants";
-import "./Restos.css"
+import styles from './Restos.module.css'
 
 interface IRestosProps {
     resto: Resto,
 }
 
 const Restos: React.FC<IRestosProps> = ({ resto }) => {
+    resto.isChecked = false;
 
     return(
         <>
-            <label htmlFor="resto">{resto.naam}</label>
-            <input type="checkbox" id={resto.id} name={resto.naam} value={resto.naam} />
-            <br />
+            <div className={styles.restos}>
+                <label htmlFor="resto">{resto.naam}</label>
+                <input type="checkbox" id={resto.id} name={resto.naam} value={resto.naam} onChange={(e) => resto.isChecked = e.target.checked} />
+            </div>
         </>
     )
 }

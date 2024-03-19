@@ -1,0 +1,11 @@
+.restos{
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+.restos label{
+    display: block;
+    width: 10rem;
+    font-size: 1.3rem;
+    text-align: center;
+    font-family: "Source Serif 4", serif;
+}

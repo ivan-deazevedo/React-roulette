@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Wheel} from 'react-custom-roulette';
+import styles from './RouletteWheel.module.css'
 
 interface StyleType {
     backgroundColor?: string; // Optional
@@ -31,15 +32,17 @@ const RouletteWheel: React.FC<IListDataProps> = ({data}) => {
 
   return (
     <>
-      <Wheel
-        mustStartSpinning={mustSpin}
-        prizeNumber={prizeNumber}
-        data={data}
-        onStopSpinning={() => {
-          setMustSpin(false);
-        }}
-      />
-      <button onClick={handleSpinClick}>SPIN</button>
+      <div className={styles.roulette_div}>
+        <Wheel
+          mustStartSpinning={mustSpin}
+          prizeNumber={prizeNumber}
+          data={data}
+          onStopSpinning={() => {
+            setMustSpin(false);
+          }}
+        />
+        <button onClick={handleSpinClick}>SPIN</button>
+      </div>
     </>
   );
 };
