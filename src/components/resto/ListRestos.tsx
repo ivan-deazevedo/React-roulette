@@ -8,12 +8,12 @@ interface IListRestoProps{
 
 const ListResto: React.FC<IListRestoProps> = ({restos}) => {
 
-    return (
+    return (      
         <>
             <h2>Restaurants</h2>
-            <div>
+            <table>
                 {restos.map(resto => <Restos key={resto.id} resto={resto} />)}
-            </div>
+            </table>
         </>
     );
 };
