@@ -8,14 +8,16 @@ import { Data } from './components/rouletteWheel/RouletteWheel';
 import './App.css'
 
 const colors : string[] = [
-  'green',
-  'blue',
-  'red',
-  'yellow',
-  'purple',
-  'pink',
-  'orange',
-  'brown',
+  '#32CD32',
+  '#1E90FF',
+  '#DC143C',
+  '#F0E68C',
+  '#9370DB',
+  '#D2691E',
+  '#00FF7F',
+  '#BC8F8F',
+  '#7FFFD4',
+  '#87CEFA',
 ]
 
 function convertRestoToData(restos: Resto[]): Data[] {
@@ -78,11 +80,7 @@ function App() {
             <label htmlFor="restoNaam">Restaurant: </label>
             <input value={naam} onChange={e => setNaam(e.target.value)} id="restoNaam"/>
           </div>
-          <div>
-            <label htmlFor="restoOmschrijving">Omschrijving: </label>
-            <input value={omschrijving} onChange={e => setOmschrijving(e.target.value)} id="restoOmschrijving"/>
-          </div>
-          <button onClick={() => { setResto([...restos, {id : restos.length.toString(), naam : naam, omschrijving : omschrijving, isChecked : false}])}}>submit</button>
+          <button onClick={() => { setResto([...restos, {id : (restos.length+1).toString(), naam : naam, isChecked : false}])}}>submit</button>
         </div> }
         { !switchToWheel  && <ListResto restos={restos} /> }
         { switchToWheel && wheelData.length > 0 && <RouletteWheel data={wheelData} />}

@@ -37,7 +37,7 @@ const RouletteWheel: React.FC<IListDataProps> = ({data}) => {
           mustStartSpinning={mustSpin}
           prizeNumber={prizeNumber}
           data={data}
-          onStopSpinning={() => {
+          onStopSpinning={() => { 
             setMustSpin(false);
           }}
         />
