@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
 .roulette_div{
     display: flex;
     flex-direction: column;
@@ -5,10 +7,39 @@
 }
 
 .roulette_div button {
-    width: 10rem;
+    width: 6rem;
     margin: 5px;
-    padding: 5px;
+    font-family: "Oswald", sans-serif;
     font-weight: bold;
     font-size: 1rem;
-    background-color: #A9A9A9;
+    color: aliceblue;
+    background-color: #000;
+    border-radius: 7px;
+}
+
+.roulette_div button:hover{
+    cursor: pointer;
+}
+
+.check_resto{
+    display: flex;
+    justify-content: center;
+    width: 20rem;
+    height: 4rem;
+}
+
+.check_resto label, select {
+    margin: 2px;
+    align-self: center;
+    font-size: 1.1rem;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto
+}
+
+.check_resto input {
+    margin: 10px;
+}
+
+.check_resto select:hover{
+    cursor: pointer;
 }

@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 
-.App {
-  text-align: center;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -22,12 +18,17 @@
 }
 
 .main_body button:first-child{
-  width: 10rem;
+  width: 6rem;
   margin-bottom: 0.6rem;
-  padding: 5px;
-  background-color: #99FF66;
-  font-weight: bold;
+  border-radius: 6px;
+  background-color: #7bf041;
+  font-family: "Oswald", sans-serif;
+  font-weight: bolder;
   font-size: 1rem;
+}
+
+.main_body button:first-child:hover{
+  cursor: pointer;
 }
 
 .input_div{
@@ -35,32 +36,39 @@
   flex-direction: column;
   align-items: center;
   background-color: #FFFFE0;
-  width: 25rem;
+  width: 15rem;
   margin: 0 auto;
   border: 1px solid #000;
 }
 
-.input_div div{
-  display: flex;
-  margin: 8px;
+.input_div label{
+  font-size: 1.4rem;
+  font-family: "Oswald", sans-serif;
 }
 
-.input_div div label{
-  display: block;
-  width: 9rem;
-  text-align: end;
-  font-family: "Source Serif 4", serif;
-  font-size: 1.3rem;
-  margin-right: 0.5rem;
+.input_div input{
+  font-size: 1rem;
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+  border: 1px solid black;
+  border-radius: 6px;
 }
 
 .input_div button {
-  width: 10rem;
+  width: 6rem;
   align-self: center;
-  margin: 5px;
-  padding: 5px;
+  margin: 0.8rem auto 8px;
+  padding: 1px;
+  color: aliceblue;
+  border-radius: 6px;
+  font-family: "Oswald", sans-serif;
   font-weight: bold;
   font-size: 1rem;
+  background-color: #282c34;
+}
+
+.input_div button:hover{
+  cursor: pointer;
 }
 
 .App-header {
@@ -70,8 +78,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {

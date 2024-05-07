@@ -6,6 +6,8 @@ import { Resto } from './models/restaurants';
 import RouletteWheel from './components/rouletteWheel/RouletteWheel';
 import { Data } from './components/rouletteWheel/RouletteWheel';
 import './App.css'
+import AddForm from './components/addForm/AddForm';
+import { ApiURL } from './models/apiLink';
 
 const colors : string[] = [
   '#32CD32',
@@ -27,12 +29,12 @@ function convertRestoToData(restos: Resto[]): Data[] {
 
 async function fetchData() {
   try {
-    const res = await fetch('http://localhost:4000/opties', { mode: 'cors' });
+    const res = await fetch(ApiURL, { mode: 'cors' });
     if (!res.ok) {
       throw new Error('Failed to fetch');
     }
     const data = await res.json();
-    return data;
+    return data.data;
   } catch (err) {
     console.error(err);
     return [];
@@ -42,8 +44,6 @@ async function fetchData() {
 function App() {
   const [restos, setResto] = useState<Resto[]>([]);
   const [switchToWheel, setSwitchToWheel] = React.useState(false);
-  const [naam, setNaam] = React.useState('');
-  const [omschrijving, setOmschrijving] = React.useState('');
 
   const handleSwitch = () => {
     setSwitchToWheel(!switchToWheel);
@@ -57,6 +57,11 @@ function App() {
 
     fetchRestos();
   }, []);
+
+  const fetchRestoData = async () =>{
+    const data = await fetchData();
+    setResto(data);
+  }
 
   function WheelData(){
     const wheelRestos : Resto[] = [];
@@ -76,13 +81,9 @@ function App() {
       <div className='main_body'>
         <button onClick={handleSwitch}>Wheel</button>
         {!switchToWheel && <div className='input_div'>
-          <div>
-            <label htmlFor="restoNaam">Restaurant: </label>
-            <input value={naam} onChange={e => setNaam(e.target.value)} id="restoNaam"/>
-          </div>
-          <button onClick={() => { setResto([...restos, {id : (restos.length+1).toString(), naam : naam, isChecked : false}])}}>submit</button>
+          <AddForm fetchDataCallBack={fetchRestoData} />
         </div> }
-        { !switchToWheel  && <ListResto restos={restos} /> }
+        { !switchToWheel  && <ListResto restos={restos} fetchCallBack={fetchRestoData} /> }
         { switchToWheel && wheelData.length > 0 && <RouletteWheel data={wheelData} />}
       </div>
     </>   

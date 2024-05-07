@@ -1,11 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
 .restos{
     display: flex;
     margin-bottom: 0.5rem;
 }
+
 .restos label{
     display: block;
-    width: 10rem;
+    width: 8rem;
     font-size: 1.3rem;
     text-align: center;
-    font-family: "Source Serif 4", serif;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+}
+
+.restos button{
+    float: right;
+    margin-left: 2.5rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    background-color: #8b0000;
+    color: azure;
+    cursor: pointer; 
+}
+
+.restos button:hover{
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.5);
 }

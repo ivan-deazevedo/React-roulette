@@ -5,16 +5,17 @@ import styles from "./ListRestos.module.css"
 
 interface IListRestoProps{
     restos: Resto[],
+    fetchCallBack: () => void;
 }
 
-const ListResto: React.FC<IListRestoProps> = ({restos}) => {
+const ListResto: React.FC<IListRestoProps> = ({restos, fetchCallBack}) => {
 
     return (      
         <>
             <h2>Restaurants</h2>
-            <table className={styles.table}>
-                {restos.map(resto => <Restos key={resto.id} resto={resto} />)}
-            </table>
+            <div className={styles.table}>
+                {restos.map(resto => <Restos key={resto.id} resto={resto} fetchDataCallBack={fetchCallBack} />)}
+            </div>
         </>
     );
 };
