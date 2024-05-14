@@ -1,6 +1,7 @@
 export interface Resto{
     id: string,
     naam: string,
+    teller: number
     isChecked: boolean,
 }
 
