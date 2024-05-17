@@ -7,9 +7,19 @@ import RouletteWheel from './components/rouletteWheel/RouletteWheel';
 import { Data } from './components/rouletteWheel/RouletteWheel';
 import './App.css'
 import AddForm from './components/addForm/AddForm';
-import { ApiURL } from './models/apiLink';
+import { UpdateRestaurantTeller, fetchData } from './api_functions/apiFunctions';
 
 const colors : string[] = [
+  '#32CD32',
+  '#1E90FF',
+  '#DC143C',
+  '#F0E68C',
+  '#9370DB',
+  '#D2691E',
+  '#00FF7F',
+  '#BC8F8F',
+  '#7FFFD4',
+  '#87CEFA',
   '#32CD32',
   '#1E90FF',
   '#DC143C',
@@ -24,27 +34,6 @@ const colors : string[] = [
 
 function convertRestoToData(restos: Resto[]): Data[] {
   return restos.map((resto , key) => ({ option: resto.naam, style: { backgroundColor: colors[key], textColor: 'black'}}));
-}
-
-
-async function fetchData() {
-  try {
-    const res = await fetch(ApiURL, { mode: 'cors' });
-    if (!res.ok) {
-      throw new Error('Failed to fetch');
-    }
-    const data = await res.json();
-    return data.data;
-  } catch (err) {
-    console.error(err);
-    return [];
-  }
-}
-
-const UpdateRestaurantTeller = async(id: string, updateTeller: number) => {
-  const response = await fetch(`${ApiURL}/${id}`, { mode: 'cors', method: 'PUT', headers:{'Content-Type': 'application/json',}, body: JSON.stringify({teller : updateTeller}),});
-  const result = await response.json();
-  return result
 }
 
 function App() {
@@ -86,6 +75,9 @@ function App() {
         wheelRestos.push(resto);
       }
     });
+    if (wheelRestos.length === 0 ){
+      return restos
+    }
     return wheelRestos;
   }
 
