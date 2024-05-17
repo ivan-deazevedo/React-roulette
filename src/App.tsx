@@ -41,12 +41,28 @@ async function fetchData() {
   }
 }
 
+const UpdateRestaurantTeller = async(id: string, updateTeller: number) => {
+  const response = await fetch(`${ApiURL}/${id}`, { mode: 'cors', method: 'PUT', headers:{'Content-Type': 'application/json',}, body: JSON.stringify({teller : updateTeller}),});
+  const result = await response.json();
+  return result
+}
+
 function App() {
   const [restos, setResto] = useState<Resto[]>([]);
   const [switchToWheel, setSwitchToWheel] = React.useState(false);
 
   const handleSwitch = () => {
     setSwitchToWheel(!switchToWheel);
+    if(switchToWheel === false){
+      var wheelData = WheelData();
+      wheelData.forEach(async resto => {
+        var teller = resto.teller+1;
+          await UpdateRestaurantTeller(resto.id, teller)
+      });
+    }
+    else{
+      fetchRestoData()
+    }
   };
 
   useEffect(() => {
