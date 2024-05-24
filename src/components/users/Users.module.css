@@ -1,0 +1,30 @@
+.users{
+    display: flex;
+    margin-bottom: 0.1rem;
+}
+
+.users label{
+    display: block;
+    width: 9rem;
+    font-size: 1.1rem;
+    text-align: center;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+}
+
+.users button{
+    float: right;
+    margin-left: 1.5rem;
+    height: 1.2rem;
+    width: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 3px;
+    background-color: #8b0000;
+    color: azure;
+    cursor: pointer; 
+}
+
+.users button:hover{
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.5);
+}

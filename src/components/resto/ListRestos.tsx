@@ -12,9 +12,11 @@ const ListResto: React.FC<IListRestoProps> = ({restos, fetchCallBack}) => {
 
     return (      
         <>
-            <h2>Restaurants</h2>
-            <div className={styles.table}>
-                {restos.map(resto => <Restos key={resto.id} resto={resto} fetchDataCallBack={fetchCallBack} />)}
+            <div className={styles.table_div}>
+                <h2>Restaurants</h2>
+                <div className={styles.table}>
+                    {restos.map(resto => <Restos key={resto.id} resto={resto} fetchDataCallBack={fetchCallBack} />)}
+                </div>
             </div>
         </>
     );

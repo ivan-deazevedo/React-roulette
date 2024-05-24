@@ -43,3 +43,14 @@
 .check_resto select:hover{
     cursor: pointer;
 }
+
+.moet_bestellen{
+    font-family: "Oswald", sans-serif;
+    font-size: 1.3rem;
+    color: blue;
+}
+
+.moet_bestellen span{
+    font-size: 1.5rem;
+    color: red;
+}

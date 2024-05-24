@@ -13,14 +13,16 @@ interface StyleType {
 
 export interface Data {
     option: string,
-    style: StyleType
+    style: StyleType,
+    url: string
 }
 
 export interface IListDataProps{
     data: Data[],
+    user: string
 }
 
-const RouletteWheel: React.FC<IListDataProps> = ({data}) => {
+const RouletteWheel: React.FC<IListDataProps> = ({data, user}) => {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
@@ -42,17 +44,24 @@ const RouletteWheel: React.FC<IListDataProps> = ({data}) => {
     setMustSpin(true);
   };
 
+  const openNewUrl = (url: string) => {
+    window.open(url, '_blank');
+  }
+
   return (
     <>
       <div className={styles.roulette_div}>
         <div className={styles.check_resto}>
           <input type="checkbox" onChange={handleCheckboxChange} />
-          <label htmlFor="Subway">Must spin: </label>
+          <label htmlFor="MustSpin">Must spin: </label>
           <select onChange={(e) => setSelectedIndex(e.target.selectedIndex)}>
             {data.map(resto => (
               <option value={resto.option}>{resto.option}</option>
             ))}
           </select>
+        </div>
+        <div className={styles.moet_bestellen}>
+          <p>@<span>{user}</span> moet deze keer de bestelling doen!</p>
         </div>
       
         <Wheel
@@ -65,7 +74,7 @@ const RouletteWheel: React.FC<IListDataProps> = ({data}) => {
           fontSize={25}
           fontWeight={400}
           onStopSpinning={() => { 
-            setMustSpin(false);
+            setMustSpin(false); openNewUrl(data[prizeNumber].url);
           }}
         />
         <button onClick={handleSpinClick}>SPIN</button>

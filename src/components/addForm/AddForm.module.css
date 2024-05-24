@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
+.input_div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFFFE0;
+    width: 30rem;
+    margin: 0 auto;
+    border: 1px solid #000;
+  }
+
+  .div{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .label{
+    width: 6.5rem;
+    font-size: 1.4rem;
+    font-family: "Oswald", sans-serif;
+    text-align: end;
+    margin: 0.5rem;
+  }
+  
+  .input{
+    width: 20rem;
+    margin: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+    font-family: "Oswald", sans-serif;
+    border: 1px solid black;
+    border-radius: 6px;
+  }
+  
+  .button {
+    width: 6rem;
+    margin-bottom: 0.6rem;
+    padding: 1px;
+    color: aliceblue;
+    border-radius: 6px;
+    font-family: "Oswald", sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    background-color: #282c34;
+  }
+  
+  .button:hover{
+    cursor: pointer;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.5);
+  }
+  
