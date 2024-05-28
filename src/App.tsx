@@ -86,6 +86,11 @@ function App() {
     FetchUserData();
   }
 
+  const resetForms = () =>{
+    setAddResto(false);
+    setAddUser(false);
+  }
+
 
   // array met data voor roulette wheel vullen.
   const wheelData = convertRestoToData(WheelData());
@@ -112,6 +117,9 @@ function App() {
         checkedUsers.push(user);
       }
     });
+    if(checkedUsers.length === 0){
+      checkedUsers = users
+    }
     var randomIndex = Math.floor(Math.random() * checkedUsers.length);
     var random = checkedUsers[randomIndex];
 
@@ -147,11 +155,11 @@ function App() {
         {!addresto && !adduser && <button className='wheel_button' onClick={handleSwitch}>Wheel</button>}
         {!switchToWheel && addresto &&
         <div>
-          <AddForm fetchDataCallBack={callbackFetch} />
+          <AddForm fetchDataCallBack={callbackFetch} onFormSubmit={resetForms}/>
         </div> }
         {!switchToWheel && adduser && 
         <div>
-          <AddUserForm fetchUserDataCallBack={callbackFetch} />
+          <AddUserForm fetchUserDataCallBack={callbackFetch} onFormSubmit={resetForms}/>
         </div>}
         { !switchToWheel && !addresto && !adduser && 
         <div className='div_tables'>

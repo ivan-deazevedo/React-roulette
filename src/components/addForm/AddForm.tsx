@@ -1,44 +1,52 @@
-import React, { useState } from "react";
-import { PostResto } from "../../models/restaurants";
+import React from "react";
 import axios from "axios";
 import { ApiURL } from "../../models/apiLink";
-import styles from "./AddForm.module.css"
+import styles from "./AddForm.module.css";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
 
-const resto : PostResto =  {
-    naam : "",
-    weburl: ""
+interface IRestoFormInput {
+    naam : string;
+    weburl : string;
 }
 
-const AddForm : React.FC<{fetchDataCallBack: () => void}> = ({fetchDataCallBack}) => {
-    const [data, setData] = useState<PostResto>(resto);
+const schema = yup.object().shape({
+    naam: yup.string().required("Naam is verplicht"),
+    weburl: yup.string().required("Link naar website moet meegegeven worden")
+        .url("Moet een web url zijn")
+})
 
-    const handleData = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        setData({...data, [e.target.name]:e.target.value, [e.target.name]:e.target.value})
-    }
+const AddForm : React.FC<{fetchDataCallBack: () => void; onFormSubmit: () => void}> = ({fetchDataCallBack, onFormSubmit, }) => {
 
-    const handleSubmit = (e: React.FormEvent<HTMLButtonElement>)=>{
-        e.preventDefault();
+    const{register, handleSubmit, formState: {errors},} = useForm<IRestoFormInput>({ resolver: yupResolver(schema) });
+
+    const onSubmit = (Data: IRestoFormInput)=>{
         axios({
             url: ApiURL,
             method: "POST",
-            data: data
-        }).then((res) => {fetchDataCallBack(); setData({naam: '', weburl: ''})})
+            data: Data
+        }).then((res) => {fetchDataCallBack(); onFormSubmit();})
         .catch((err) => console.log(err));
     }
 
     return(
         <>
-            <div className={styles.input_div}>
-                <div className={styles.div}>
-                    <label className={styles.label}>Restaurant:</label>
-                    <input className={styles.input}  type="text" name="naam" value={data.naam} onChange={handleData}></input>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className={styles.input_div}>
+                    {errors.naam && <p className={styles.error_p}>{errors.naam.message}</p>}
+                    <div className={styles.div}>
+                        <label className={styles.label}>Restaurant:</label>
+                        <input className={styles.input} placeholder="Restaurant naam" {...register("naam")} />
+                    </div>
+                    {errors.weburl && <p className={styles.error_p}>{errors.weburl.message}</p>}
+                    <div className={styles.div}>
+                        <label className={styles.label}>url:</label>
+                        <input className={styles.input}  placeholder="https://www.voorbeeld.nl" {...register("weburl")} />
+                    </div>
+                    <input className={styles.button} type="submit" />
                 </div>
-                <div className={styles.div}>
-                    <label className={styles.label}>url:</label>
-                    <input className={styles.input} type="text" name="weburl" value={data.weburl} onChange={handleData}></input>
-                </div>
-                <button className={styles.button} onClick={handleSubmit}>Submit</button>
-            </div>
+            </form>
         </>
     );
 };

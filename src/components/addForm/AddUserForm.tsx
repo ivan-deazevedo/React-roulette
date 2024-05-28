@@ -1,40 +1,46 @@
-import { useState } from "react";
-import { PostUser } from "../../models/users";
 import axios from "axios";
 import { UserApiURL } from "../../models/apiLink";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import styles from "./AddForm.module.css"
+import { useForm } from "react-hook-form";
 
-const user : PostUser =  {
-    voornaam : "",
-    familienaam : ""
+interface IUserFormInput {
+    voornaam : string;
+    familienaam : string;
 }
 
-const AddForm : React.FC<{fetchUserDataCallBack: () => void}> = ({fetchUserDataCallBack}) => {
-    const [data, setData] = useState<PostUser>(user);
+const schema = yup.object().shape({
+    voornaam: yup.string().required("Vooraam is verplicht"),
+    familienaam: yup.string().required("Familienaam is verplicht")
+})
 
-    const handleData = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        setData({...data, [e.target.name]:e.target.value})
-    }
+const AddForm : React.FC<{fetchUserDataCallBack: () => void; onFormSubmit: () => void}> = ({fetchUserDataCallBack, onFormSubmit, }) => {
+    
+    const{register, handleSubmit, formState: {errors},} = useForm<IUserFormInput>({ resolver: yupResolver(schema) });
 
-    const handleSubmit = (e: React.FormEvent<HTMLButtonElement>)=>{
-        e.preventDefault();
-        axios.post(UserApiURL, data).then((res) => { fetchUserDataCallBack(); setData({voornaam: '', familienaam: ''})})
+    const onSubmit = (data: IUserFormInput)=>{
+        axios.post(UserApiURL, data).then((res) => { fetchUserDataCallBack(); onFormSubmit();})
         .catch((err) => console.log(err));
     }
 
     return(
         <>
+            <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.input_div}>
-                <div className={styles.div}>
-                    <label className={styles.label}>Voornaam:</label>
-                    <input className={styles.input}  type="text" name="voornaam" value={data.voornaam} onChange={handleData}></input>
+                    {errors.voornaam && <p className={styles.error_p}>{errors.voornaam.message}</p>}
+                    <div className={styles.div}>
+                        <label className={styles.label}>Voornaam: </label>
+                        <input className={styles.input} placeholder="Voornaam" {...register("voornaam")} />
+                    </div>
+                    {errors.familienaam && <p className={styles.error_p}>{errors.familienaam.message}</p>}
+                    <div className={styles.div}>
+                        <label className={styles.label}>Familienaam: </label>
+                        <input className={styles.input} placeholder="Familienaam" {...register("familienaam")} />
+                    </div>
+                    <input className={styles.button} type="submit" />
                 </div>
-                <div className={styles.div}>
-                    <label className={styles.label}>Familienaam:</label>
-                    <input className={styles.input} type="text" name="familienaam" value={data.familienaam} onChange={handleData}></input>
-                </div>
-                <button className={styles.button} onClick={handleSubmit}>Submit</button>
-            </div>
+            </form>
         </>
     );
 };
